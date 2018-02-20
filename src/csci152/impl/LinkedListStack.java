@@ -38,7 +38,7 @@ public class LinkedListStack<T> implements Stack<T> {
     @Override
     public T pop() throws Exception {
         if (size==0) {
-            throw new Exception("List is empty"); //To change body of generated methods, choose Tools | Templates.
+            throw new Exception("List is empty");
         } 
         if (size==1) {
             size = 0;
