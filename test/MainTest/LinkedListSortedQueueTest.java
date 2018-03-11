@@ -78,8 +78,8 @@ public class LinkedListSortedQueueTest {
         System.out.println(queue.getSize());
 
         SortedQueue<Student> students = new LinkedListSortedQueue();
-        Student vasya = new Student(123, "Vasya");
-        Student aiya = new Student(777, "Aiya");
+        Student vasya = new Student("Vasya", 123);
+        Student aiya = new Student("Aiya", 777);
 
         students.insert(aiya);
         students.insert(vasya);
