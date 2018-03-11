@@ -5,83 +5,126 @@
  */
 package csci152.impl;
 
+import csci152.adt.Queue;
 import csci152.adt.Set;
 
 /**
  *
  * @author Master
+ * @param <T>
  */
 public class LLQueueSet<T> implements Set<T> {
 
-    private Node<T> front;
-    private Node<T> back;
-    private Node<T> link;
-    int size;
-
-    public LLQueueSet() {
-        front = null;
-        back = null;
-        link = new Node(null);
-        size = 0;
-    }
+    Queue<T> queue = new LinkedListQueue();
 
     @Override
     public void add(T value) {
-        Node newNode = new Node(value);
-
-        if (size == 0) {
-            back = newNode;
-            front = newNode;
-            size++;
-        } else {
-            Node temp = front;
-            while (temp.getLink() != null) {
-                if (newNode.getValue() != temp.getValue()) {
-                    temp = temp.getLink();
-                } else {
+        for (int i = 0; i < queue.getSize(); i++) {
+            try {
+                T x = queue.dequeue();
+                queue.enqueue(x);
+                if (x.equals(value)) {
                     return;
                 }
+            } catch (Exception ex) {
+                //blabla
             }
-            size++;
-            back.setLink(newNode);
-            back = newNode;
         }
+        queue.enqueue(value);
+//
+//        Node newNode = new Node(value);
+//
+//        if (size == 0) {
+//            back = newNode;
+//            front = newNode;
+//            size++;
+//        } else {
+//            Node temp = front;
+//            while (temp.getLink() != null) {
+//                if (newNode.getValue() != temp.getValue()) {
+//                    temp = temp.getLink();
+//                } else {
+//                    return;
+//                }
+//            }
+//            size++;
+//            back.setLink(newNode);
+//            back = newNode;
+//        }
     }
 
     @Override
     public boolean contains(T value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < queue.getSize(); i++) {
+            try {
+                T x = queue.dequeue();
+                queue.enqueue(x);
+
+                if (x.equals(value)) {
+                    return true;
+                }
+            } catch (Exception ex) {
+                //ablafk
+            }
+        }
+        return false;
     }
 
     @Override
     public boolean remove(T value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (contains(value)) {
+            for (int i = 0; i < queue.getSize(); i++) {
+                try {
+                    T x = queue.dequeue();
+                    if (x != value) {
+                        queue.enqueue(x);
+                    } else {
+                        return true;
+                    }
+                } catch (Exception ex) {
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public T removeAny() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (getSize() != 0) {
+            T x = queue.dequeue();
+            return x;
+        } else {
+            throw new Exception("set is empty");
+        }
     }
 
     @Override
     public int getSize() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return queue.getSize();
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        queue.clear();
     }
-    
+
     @Override
     public String toString() {
         String message = "{";
-        Node<T> m = front;
-        while (m != null) {
-            message += m.getValue() + " ";
-            m = m.getLink();
+        for (int i = 0; i < queue.getSize(); i++) {
+            try {
+                T x = queue.dequeue();
+                message += x + " ";
+                queue.enqueue(x);
+            } catch (Exception ex) {
+                //OWubKA
+            }
+
         }
-        return message += "}";
+        message += "}";
+
+        return message += "\nSize: " + getSize();
+
     }
 
 }
