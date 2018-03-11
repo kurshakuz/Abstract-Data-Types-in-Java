@@ -7,54 +7,50 @@ package csci152.impl;
 
 import csci152.adt.Queue;
 
-
 public class LinkedListQueue<T> implements Queue<T> {
 
     private Node<T> front;
     private Node<T> back;
     private Node<T> link;
     int size;
-    
+
     public LinkedListQueue() {
-        front = new Node(null);
-        back = new Node(null);
+        front = null;
+        back = null;
         link = new Node(null);
         size = 0;
     }
-    
+
     @Override
     public void enqueue(T value) {
-        Node New = new Node(value);
+        Node newNode = new Node(value);
 
         if (size == 0) {
-            back.setLink(New);
-            front.setLink(New);
+            back = newNode;
+            front = newNode;
             size++;
+        } else {
+            size++;
+            back.setLink(newNode);
+            back = newNode;
         }
-//        int i = 0;
-//        while (i <= size) {
-//            link.setLink(front.getLink());
-//        }
-        size++;
-        back.getLink().setLink(New);
-        back.setLink(New);
     }
 
     @Override
     public T dequeue() throws Exception {
         if (size == 0) {
             throw new Exception("Queue is empty");
-        } 
+        }
         if (size == 1) {
             size = 0;
-            T value = front.getLink().getValue();
-            front.setLink(null);
-            back.setLink(null);
+            T value = front.getValue();
+            front = null;
+            back = null;
             return value;
         }
         size--;
-        T value= front.getLink().getValue();
-        front.setLink(front.getLink().getLink());
+        T value = front.getValue();
+        front = front.getLink();
         return value;
     }
 
@@ -71,18 +67,18 @@ public class LinkedListQueue<T> implements Queue<T> {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
-        }    
+        }
     }
-    
+
     @Override
     public String toString() {
         String message = "front [";
         Node<T> m = front;
         while (m != null) {
-            message += m.getValue()+" ";
+            message += m.getValue() + " ";
             m = m.getLink();
         }
         return message += "] back";
     }
-    
+
 }
