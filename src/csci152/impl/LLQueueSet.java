@@ -19,17 +19,7 @@ public class LLQueueSet<T> implements Set<T> {
 
     @Override
     public void add(T value) {
-        for (int i = 0; i < queue.getSize(); i++) {
-            try {
-                T x = queue.dequeue();
-                queue.enqueue(x);
-                if (x.equals(value)) {
-                    return;
-                }
-            } catch (Exception ex) {
-                //blabla
-            }
-        }
+        if (contains(value)) return;
         queue.enqueue(value);
 //
 //        Node newNode = new Node(value);
@@ -76,7 +66,7 @@ public class LLQueueSet<T> implements Set<T> {
             for (int i = 0; i < queue.getSize(); i++) {
                 try {
                     T x = queue.dequeue();
-                    if (x != value) {
+                    if (!x.equals(value)) {
                         queue.enqueue(x);
                     } else {
                         return true;
