@@ -30,15 +30,16 @@ public class Student implements Comparable {
 
     @Override
     public int compareTo(Object newStudent) {
-        Student st = (Student)newStudent;
+        Student st = (Student) newStudent;
 //        return ID.compareTo(st.getId());
-        if (ID > st.getId()) {
+        if (ID == st.getId()) {
+            return 0;
+        } else if (ID > st.getId()) {
             return 1;
         } else {
             return -1;
         }
-
-//        return name.compareTo(st.getName());
+ //       return name.compareTo(st.getName());
     }
 
     public boolean equals(Object obj) {
@@ -50,7 +51,12 @@ public class Student implements Comparable {
     }
     
     @Override
-    public String toString(){
+    public String toString() {
         return "[" + getName() + "; " + getId() + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        return 42;
     }
 }

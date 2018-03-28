@@ -7,8 +7,7 @@ package csci152.impl;
 
 import csci152.adt.Set;
 import csci152.adt.Stack;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -16,7 +15,11 @@ import java.util.logging.Logger;
  */
 public class LLStackSet<T> implements Set<T> {
 
-    Stack<T> stack = new LinkedListStack();
+    private Stack<T> stack = new LinkedListStack();
+    
+    public LLStackSet() {
+        this.stack = new LinkedListStack<>();
+    }
 
     @Override
     public void add(T value) {
@@ -27,16 +30,27 @@ public class LLStackSet<T> implements Set<T> {
 
     @Override
     public boolean contains(T value) {
-        for (int i = 0; i < stack.getSize(); i++) {
+        int size = stack.getSize(); 
+        Stack<T> stackTemp = new LinkedListStack();
+        for (int i = 0; i < size; i++) {
             try {
                 T x = stack.pop();
-                stack.push(x);
+                stackTemp.push(x);
 
                 if (x.equals(value)) {
+                    int sizeTemp = stackTemp.getSize();
+                    for (int j = 0; j < sizeTemp; j++) {
+                        stack.push(stackTemp.pop());
+                    }
                     return true;
+                } else if (stack.getSize() == 0) {
+                    int sizeTemp = stackTemp.getSize();
+                    for (int j = 0; j < sizeTemp; j++) {
+                        stack.push(stackTemp.pop());
+                    }
                 }
             } catch (Exception ex) {
-                //ablafk
+                System.out.println(ex);
             }
         }
         return false;
@@ -45,17 +59,34 @@ public class LLStackSet<T> implements Set<T> {
     @Override
     public boolean remove(T value) {
         if (contains(value)) {
-            for (int i = 0; i < stack.getSize(); i++) {
+            Stack<T> stackTemp = new LinkedListStack();
+            T x = null;
+
+            try {
+                x = stack.pop();
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+
+            while (!value.equals(x)) {
+                stackTemp.push(x);
                 try {
-                    T x = stack.pop();
-                    if (x != value) {
-                        stack.push(x);
-                    } else {
-                        return true;
-                    }
+                    x = stack.pop();
                 } catch (Exception ex) {
+                    System.out.println(ex);
                 }
             }
+
+            int size = stackTemp.getSize();
+            for (int i = 0; i < size; i++) {
+                try {
+                    stack.push(stackTemp.pop());
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+            }
+            
+            return true;
         }
         return false;
     }
@@ -66,7 +97,7 @@ public class LLStackSet<T> implements Set<T> {
             T x = stack.pop();
             return x;
         } else {
-            throw new Exception ("set is empty");
+            throw new Exception("set is empty");
         }
     }
 
@@ -82,20 +113,21 @@ public class LLStackSet<T> implements Set<T> {
 
     @Override
     public String toString() {
-        String message = "{";
-        for (int i = 0; i < stack.getSize(); i++) {
-            try {
-                T x = stack.pop();
-                message += x + " ";
-                stack.push(x);
-            } catch (Exception ex) {
-                //OWubKA
-            }
-
-        }
-        message += "}";
-
-        return message += "\nSize: " + getSize();
+//        String message = "{";
+//        for (int i = 0; i < stack.getSize(); i++) {
+//            try {
+//                T x = stack.pop();
+//                message += x + " ";
+//                stack.push(x);
+//            } catch (Exception ex) {
+//                //OWubKA
+//            }
+//
+//        }
+//        message += "}";
+//
+//        return message += "\nSize: " + getSize();
+        return stack.toString();
 
     }
 

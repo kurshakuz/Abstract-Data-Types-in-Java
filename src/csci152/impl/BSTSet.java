@@ -95,6 +95,8 @@ public class BSTSet<T extends Comparable> implements Set<T> {
 
         TreeNode<T> result = root;
         TreeNode<T> parent = null;
+        
+        
 
         boolean isOnLeft = false; //(parent.getValue().compareTo(result.getValue()) > 0);
          
@@ -116,17 +118,17 @@ public class BSTSet<T extends Comparable> implements Set<T> {
             } else {
                 parent.setRight(null);
             }
-            
-            
-            
+                    
         //Case of one child
         } else if (result.getLeft() != null && result.getRight() == null) {
+            // has a left child
             if (isOnLeft) {
                 parent.setLeft(result.getLeft());
             } else {
                 parent.setRight(result.getLeft());
             }
         } else if (result.getRight() != null && result.getLeft() == null) {
+            // has a right child
             if (isOnLeft) {
                 parent.setLeft(result.getRight());
             } else {

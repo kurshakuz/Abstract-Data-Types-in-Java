@@ -66,13 +66,9 @@ public class BST2Set<T extends Comparable> implements Set<T> {
     }
 
     private boolean containsHelper(OnOffTreeNode<T> node, T value) {
-        boolean check;
+        boolean check = false;
 
         if (node == null) {
-            return false;
-        }
-
-        if (!node.isActive()) {
             return false;
         }
 
@@ -83,7 +79,9 @@ public class BST2Set<T extends Comparable> implements Set<T> {
         }
 
         if (node.getValue().equals(value)) {
-            check = true;
+            if (node.isActive()) {
+                check = true;
+            }
         }
 
         return check;
@@ -124,6 +122,7 @@ public class BST2Set<T extends Comparable> implements Set<T> {
 
         T value = null;
         if (size == 0) throw new Exception("The set is empty");
+
         value = removeAnyHelper(root);
         return value;
     }
@@ -160,7 +159,7 @@ public class BST2Set<T extends Comparable> implements Set<T> {
     }
 
     public String toString() {
-        return toStringHelper(root) + "\nSize: " + getSize();
+        return toStringHelper(root);// + "\nSize: " + getSize();
     }
 
     private String toStringHelper(OnOffTreeNode<T> node) {

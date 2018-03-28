@@ -5,51 +5,31 @@
  */
 package csci152.impl;
 
-import csci152.adt.Queue;
+import csci152.Student;
 import csci152.adt.Set;
+import csci152.adt.Stack;
 
 /**
  *
  * @author Master
- * @param <T>
  */
-public class LLQueueSet<T> implements Set<T> {
+public class StackSet<T> implements Set<T> {
 
-    Queue<T> queue = new LinkedListQueue();
+    Stack<T> stack = new LinkedListStack();
 
     @Override
     public void add(T value) {
-        if (!contains(value)) {
-            queue.enqueue(value);
+        if (!(contains(value))) {
+            stack.push(value);
         }
-//
-//        Node newNode = new Node(value);
-//
-//        if (size == 0) {
-//            back = newNode;
-//            front = newNode;
-//            size++;
-//        } else {
-//            Node temp = front;
-//            while (temp.getLink() != null) {
-//                if (newNode.getValue() != temp.getValue()) {
-//                    temp = temp.getLink();
-//                } else {
-//                    return;
-//                }
-//            }
-//            size++;
-//            back.setLink(newNode);
-//            back = newNode;
-//        }
     }
 
     @Override
     public boolean contains(T value) {
-        for (int i = 0; i < queue.getSize(); i++) {
+        for (int i = 0; i < stack.getSize(); i++) {
             try {
-                T x = queue.dequeue();
-                queue.enqueue(x);
+                T x = stack.pop();
+                stack.push(x);
 
                 if (x.equals(value)) {
                     return true;
@@ -64,11 +44,11 @@ public class LLQueueSet<T> implements Set<T> {
     @Override
     public boolean remove(T value) {
         if (contains(value)) {
-            for (int i = 0; i < queue.getSize(); i++) {
+            for (int i = 0; i < stack.getSize(); i++) {
                 try {
-                    T x = queue.dequeue();
-                    if (!x.equals(value)) {
-                        queue.enqueue(x);
+                    T x = stack.pop();
+                    if (x != value) {
+                        stack.push(x);
                     } else {
                         return true;
                     }
@@ -82,31 +62,31 @@ public class LLQueueSet<T> implements Set<T> {
     @Override
     public T removeAny() throws Exception {
         if (getSize() != 0) {
-            T x = queue.dequeue();
+            T x = stack.pop();
             return x;
         } else {
-            throw new Exception("set is empty");
+            throw new Exception ("set is empty");
         }
     }
 
     @Override
     public int getSize() {
-        return queue.getSize();
+        return stack.getSize();
     }
 
     @Override
     public void clear() {
-        queue.clear();
+        stack.clear();
     }
 
     @Override
     public String toString() {
         String message = "{";
-        for (int i = 0; i < queue.getSize(); i++) {
+        for (int i = 0; i < stack.getSize(); i++) {
             try {
-                T x = queue.dequeue();
+                T x = stack.pop();
                 message += x + " ";
-                queue.enqueue(x);
+                stack.push(x);
             } catch (Exception ex) {
                 //OWubKA
             }

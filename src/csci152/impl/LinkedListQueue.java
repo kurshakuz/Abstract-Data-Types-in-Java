@@ -74,6 +74,10 @@ public class LinkedListQueue<T> implements Queue<T> {
     public String toString() {
         String message = "front [";
         Node<T> m = front;
+
+        if (m == null) {
+            message += "";
+        }
         while (m != null) {
             message += m.getValue() + " ";
             m = m.getLink();

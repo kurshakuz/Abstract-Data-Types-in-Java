@@ -14,6 +14,7 @@ import csci152.impl.LLStackSet;
  * @author Master
  */
 public class LLStackSetTest {
+    
     public static void main(String[] args) throws Exception {
 
         Set<Student> students = new LLStackSet();
