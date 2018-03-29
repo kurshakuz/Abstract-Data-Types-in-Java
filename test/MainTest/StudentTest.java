@@ -8,7 +8,7 @@ import csci152.impl.LLQHashTableSet;
 
 public class StudentTest {
     public static void main(String[] args) {
-        HashTableSet<Student> students = new LLQHashTableSet<>(10);
+        HashTableSet<Student> students = new BSTHashTableSet<>(100);
         //LLQHashTableSet
 
         for (int i = 100; i < 300; i++) {

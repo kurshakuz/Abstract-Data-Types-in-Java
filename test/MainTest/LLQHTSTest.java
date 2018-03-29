@@ -20,6 +20,10 @@ public class LLQHTSTest {
         }
         System.out.println(set);
 
+//        set.remove(20);
+//        System.out.println(set);
+
+
         for (int i = 0; i < 21; i = i + 2) {
             set.remove(i);
         }

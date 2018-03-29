@@ -47,19 +47,18 @@ public class LLQHashTableSet<T> implements HashTableSet<T> {
         if (getSize() == 0) return false;
         if (buckets[index] == null) return false;
 
-        for (int i = 0; i < buckets[index].getSize(); i++) {
+        int size0 = buckets[index].getSize();
+        for (int i = 0; i < size0; i++) {
             try {
-                T temp = buckets[index].dequeue();
-                buckets[index].enqueue(temp);
-                int hashTemp = abs(temp.hashCode());
-                if (Objects.equals(hashTemp, hash)) {
-                    result = true;
+                T val = buckets[index].dequeue();
+                buckets[index].enqueue(val);
+                if (val.equals(value)) {
+                    return true;
                 }
-            } catch (Exception e) {
+            } catch (Exception ex) {
             }
-
         }
-        return result;
+        return false;
     }
 
     @Override
@@ -74,7 +73,7 @@ public class LLQHashTableSet<T> implements HashTableSet<T> {
                 try {
                     T temp = buckets[index].dequeue();
                     int hashTemp = abs(value.hashCode());
-                    if (Objects.equals(hashTemp, hash)) {
+                    if (Objects.equals(temp, value)) {
                         size--;
                         result = true;
                     } else {
@@ -147,14 +146,24 @@ public class LLQHashTableSet<T> implements HashTableSet<T> {
         int sumOfSizes = 0;
         double sumOfDifferences = 0;
         for (int i = 0; i < k; i++) {
-            int size = buckets[i].getSize();
+            int size;
+            if (buckets[i] == null) {
+                size = 0;
+            } else {
+                size = buckets[i].getSize();
+            }
             sumOfSizes += size;
         }
         double meanSize = (sumOfSizes/k);
         //System.out.println(meanSize);
 
         for (int i = 0; i < k; i++) {
-            int size = buckets[i].getSize();
+            int size;
+            if (buckets[i] == null) {
+                size = 0;
+            } else {
+                size = buckets[i].getSize();
+            }
             sumOfDifferences += (Math.pow((meanSize - size), 2));
             //System.out.println("!" + sumOfDifferences + "!");
         }

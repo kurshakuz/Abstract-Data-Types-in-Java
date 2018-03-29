@@ -40,15 +40,28 @@ public class BSTHashTableSet<T extends Comparable> implements HashTableSet<T> {
         int sumOfSizes = 0;
         double sumOfDifferences = 0;
         for (int i = 0; i < k; i++) {
-            int size = buckets[i].getSize();
+            int size;
+            if (buckets[i] == null) {
+                size = 0;
+            } else {
+                size = buckets[i].getSize();
+            }
             sumOfSizes += size;
         }
         double meanSize = (sumOfSizes/k);
+        //System.out.println(meanSize);
 
         for (int i = 0; i < k; i++) {
-            int size = buckets[i].getSize();
+            int size;
+            if (buckets[i] == null) {
+                size = 0;
+            } else {
+                size = buckets[i].getSize();
+            }
             sumOfDifferences += (Math.pow((meanSize - size), 2));
+            //System.out.println("!" + sumOfDifferences + "!");
         }
+
         return Math.sqrt(sumOfDifferences/k);
     }
 
