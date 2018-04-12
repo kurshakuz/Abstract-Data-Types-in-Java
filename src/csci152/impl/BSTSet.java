@@ -60,14 +60,6 @@ public class BSTSet<T extends Comparable> implements Set<T> {
     }
 
     private boolean containsHelper(TreeNode<T> node, T value) {
-//        if ((node.getLeft() == null) && (node.getRight() == null)) {
-//            if (node.getValue() == value) {
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        }
-
         boolean check;
 
         if (node == null) {
@@ -219,8 +211,9 @@ public class BSTSet<T extends Comparable> implements Set<T> {
     }
 
     public String toString() {
-        return toStringHelper(root) + "\nSize: " + getSize() ;
+        return toStringHelper(root);
     }
+    //"\nSize: " + getSize()
 
     private String toStringHelper(TreeNode<T> node) {
         if (node == null) {

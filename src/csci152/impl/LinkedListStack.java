@@ -83,6 +83,6 @@ public class LinkedListStack<T> implements Stack<T> {
             i++;
         }
         message += "] bottom";
-        return message;
+        return message + " Size: " + getSize();
     }
 }

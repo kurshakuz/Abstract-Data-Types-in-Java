@@ -1,21 +1,18 @@
 package csci152.impl;
 
-import csci152.adt.HashTableSet;
-import csci152.adt.HashTableStats;
-import csci152.adt.Set;
-
-import java.util.Objects;
+import csci152.adt.HashTableMap;
+import csci152.adt.KeyValuePair;
 
 import static java.lang.Math.abs;
 
-public class BSTHashTableSet<T extends Comparable> implements HashTableSet<T> {
+public class BSTHashTableMap<K extends Comparable, V> implements HashTableMap<K, V>{
 
-    private BST2Set<T>[] buckets;
+    private BSTMap<K, V>[] buckets;
     private int size;
     private int k;
 
-    public BSTHashTableSet(int numberOfBuckets) {
-        buckets = new BST2Set[numberOfBuckets];
+    public BSTHashTableMap(int numberOfBuckets) {
+        buckets = new BSTMap[numberOfBuckets];
         size = 0;
         k = numberOfBuckets;
     }
@@ -49,7 +46,6 @@ public class BSTHashTableSet<T extends Comparable> implements HashTableSet<T> {
             sumOfSizes += size;
         }
         double meanSize = (sumOfSizes/k);
-        //System.out.println(meanSize);
 
         for (int i = 0; i < k; i++) {
             int size;
@@ -59,7 +55,6 @@ public class BSTHashTableSet<T extends Comparable> implements HashTableSet<T> {
                 size = buckets[i].getSize();
             }
             sumOfDifferences += (Math.pow((meanSize - size), 2));
-            //System.out.println("!" + sumOfDifferences + "!");
         }
 
         return Math.sqrt(sumOfDifferences/k);
@@ -81,60 +76,86 @@ public class BSTHashTableSet<T extends Comparable> implements HashTableSet<T> {
     }
 
     @Override
-    public void add(T value) {
-        int hash = value.hashCode();
+    public void define(K key, V value) {
+        int hash = key.hashCode();
         hash = abs(hash);
-        if (!contains(value)) {
+        KeyValuePair pair = new KeyValuePair(key, value);
+
+        if (!contains(key)) {
             int index = (hash % k);
             if (buckets[index] == null) {
-                buckets[index] = new BST2Set();
-                buckets[index].add(value);
+                buckets[index] = new BSTMap();
+                buckets[index].define(key, value);
                 size++;
             } else {
-                buckets[index].add(value);
+                buckets[index].define(key, value);
                 size++;
             }
         }
     }
 
-    @Override
-    public boolean contains(T value) {
-        int hash = abs(value.hashCode());
+    public boolean contains(K key) {
+        int hash = abs(key.hashCode());
         int index = (hash % k);
         boolean result = false;
         if (getSize() == 0) return false;
         if (buckets[index] == null) return false;
-        result = buckets[index].contains(value);
-        return result;
+
+        return buckets[index].contains(key);
+    }
+
+//    private boolean containsHelper(BSTSet<KeyValuePair<K, V>> set, K key) {
+//        boolean check;
+//        set.
+//
+//        if (node == null) {
+//            return false;
+//        }
+//
+//        if (node.getValue().getKey().compareTo(key) > 0) {
+//            check = containsHelper(node.getLeft(), key);
+//        } else {
+//            check = containsHelper(node.getRight(), key);
+//        }
+//
+//        if (node.getValue().getKey().equals(key)) {
+//            check = true;
+//        }
+//
+//        return check;
+//    }
+
+    @Override
+    public V getValue(K key) {
+        return null;
     }
 
     @Override
-    public boolean remove(T value) {
-        boolean result = false;
-        if (!contains(value)) {
-            return false;
+    public V remove(K key) {
+        V result = null;
+        KeyValuePair pair = new KeyValuePair(key, null);
+        if (!contains(key)) {
+            return null;
         } else {
-            int hash = abs(value.hashCode());
+            int hash = abs(key.hashCode());
             int index = (hash % k);
-            //for (int i = 0; i < buckets[index].getSize(); i++) {
-                result = buckets[index].remove(value);
-                if (result == true) {
-                    size--;
-                }
-            //}
+            if (buckets[index].contains(key)) {
+                result = (V)pair.getValue();
+                buckets[index].remove(key);
+                size--;
+            }
             return result;
         }
     }
 
     @Override
-    public T removeAny() throws Exception {
-        T temp = null;
-        if (getSize() == 0) throw new Exception("Set is empty!");
+    public KeyValuePair<K, V> removeAny() throws Exception {
+        KeyValuePair<K, V> temp = null;
+        if (getSize() == 0) throw new Exception("Map is empty!");
 
         for (int i = 0; i < k; i++) {
             if (buckets[i].getSize() != 0) {
                 temp = buckets[i].removeAny();
-                //System.out.println("removed " + temp);
                 size--;
                 break;
             }
@@ -149,7 +170,7 @@ public class BSTHashTableSet<T extends Comparable> implements HashTableSet<T> {
 
     @Override
     public void clear() {
-        buckets = new BST2Set[k];
+        buckets = new BSTMap[k];
         size = 0;
     }
 
