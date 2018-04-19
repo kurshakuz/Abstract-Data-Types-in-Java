@@ -31,14 +31,6 @@ public class BSTSetTest {
         System.out.println(set.contains(-8));
         System.out.println(set.contains(5));
 
-//        
-//        Remove the integers 0, 6, and 3 in that order, and print the set’s contents and size afterwards
-//Add the integers 6, 13, 99 and 11 to the set in that order, and print its contents and size
-//Remove the integer 12 from the set, and print the set’s contents and size
-//Remove the integer 5 from the set (the root!), and print the set’s contents and size
-//Call removeAny three times, and print the set’s contents and size
-//        
-//        
         
         set.remove(0);
         set.remove(6);

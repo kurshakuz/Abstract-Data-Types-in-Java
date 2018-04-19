@@ -1,29 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package MainTest;
 
 import csci152.adt.Stack;
-import csci152.impl.ArrayStack;
-//import csci152.impl.ArrayStack;
+import csci152.impl.ArrayListStack;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- *
- * @author Master
- */
-public class ArrayStackTest {
-
+public class ArrayListStackTest {
     public static void main(String[] args) {
 
-        Stack<Integer> stack = new ArrayStack();
-
-        //Stack<Integer> stack = new ArrayListStack<>();
-
+        Stack<Integer> stack = new ArrayListStack<Integer>();
 
         try {
             stack.pop();
@@ -37,7 +20,7 @@ public class ArrayStackTest {
         System.out.println(stack);
 
         try {
-            stack.pop();
+            System.out.println(stack.pop());
             stack.pop();
             stack.pop();
             stack.pop();
@@ -48,11 +31,11 @@ public class ArrayStackTest {
 
         stack.clear();
         System.out.println(stack);
-        
+
         for (int i = 0; i < 22; i++) {
             stack.push(i);
         }
-        
+
         System.out.println(stack);
 
     }
