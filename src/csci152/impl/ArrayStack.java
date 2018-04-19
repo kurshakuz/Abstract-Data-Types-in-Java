@@ -57,12 +57,12 @@ public class ArrayStack<T> implements Stack<T> {
     }
     
     public String toString() {
-        System.out.print("bottom [");
+        String m = "bottom [";
         for (int k = 0; k < size; k++) {
-            System.out.print(values[k] + " ");
+            m += values[k] + " ";
         }
-        System.out.println("] top");
-        System.out.println("The size of stack is " + size);
-        return null;
+        m += "] top";
+        //System.out.println("The size of stack is " + size);
+        return m;
     }
 }
