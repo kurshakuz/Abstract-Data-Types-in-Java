@@ -13,3 +13,6 @@ Interfaces include:
 8) HashTableMap
 
 Implentations are based on Arrays, LinkedLists and Nodes, and Binary Search Trees
+
+
+In addition, these data types were used to create Efficient Fibonacci finder algorithm (recursion used), Tower of Hanoi solver, and simple Robot World Game!
