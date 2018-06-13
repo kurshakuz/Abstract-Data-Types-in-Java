@@ -9,27 +9,9 @@ import java.io.IOException;
 
 public class SuperRobotWorld extends RobotWorld {
 
-//    public static final char SPACE = ' ';
-//    public static final char WALL = '#';
-//    public static final char GOAL = 'G';
-//
-//    public static final char NORTH = '^';
-//    public static final char SOUTH = 'V';
-//    public static final char EAST = '>';
-//    public static final char WEST = '<';
-
     // Fields
     private Stack<Character> movements = new ArrayStack();
     private Stack<Character> undos = new ArrayStack();
-
-//    // The map of the world
-//    private char[][] worldMap;
-//
-//    // The dimensions of the world map
-//    private int maxRows, maxColumns;
-//
-//    // The location of the robot
-//    private int robotRow, robotColumn;
 
     public SuperRobotWorld(String mapFile) throws IOException {
         super(mapFile);
@@ -41,69 +23,6 @@ public class SuperRobotWorld extends RobotWorld {
         super.moveForward();
         movements.push('F');
 
-//        if (worldMap[robotRow][robotColumn] == GOAL) {
-//            System.out.println("SUCCESS!!!");
-//            worldMap[robotRow][robotColumn] = SPACE;
-//        }
-//
-//        if (worldMap[robotRow][robotColumn] == NORTH) {
-//            if (worldMap[robotRow - 1][robotColumn] == WALL) {throw new Exception("You have approached a wall");}
-//            worldMap[robotRow - 1][robotColumn] = worldMap[robotRow][robotColumn];
-//            worldMap[robotRow][robotColumn] = SPACE;
-//            robotRow--;
-//            movements.push('N');
-//
-//        } else if (worldMap[robotRow][robotColumn] == SOUTH) {
-//            if (worldMap[robotRow + 1][robotColumn] == WALL) {throw new Exception("You have approached a wall");}
-//            worldMap[robotRow + 1][robotColumn] = worldMap[robotRow][robotColumn];
-//            worldMap[robotRow][robotColumn] = SPACE;
-//            robotRow++;
-//            movements.push('S');
-//
-//        } else if (worldMap[robotRow][robotColumn] == EAST) {
-//            if (worldMap[robotRow][robotColumn + 1] == WALL) {throw new Exception("You have approached a wall");}
-//            worldMap[robotRow][robotColumn + 1] = worldMap[robotRow][robotColumn];
-//            worldMap[robotRow][robotColumn] = SPACE;
-//            robotColumn++;
-//            movements.push('E');
-//
-//        } else if (worldMap[robotRow][robotColumn] == WEST) {
-//            if (worldMap[robotRow][robotColumn - 1] == WALL) {throw new Exception("You have approached a wall");}
-//            worldMap[robotRow][robotColumn - 1] = worldMap[robotRow][robotColumn];
-//            worldMap[robotRow][robotColumn] = SPACE;
-//            robotColumn--;
-//            movements.push('W');
-//        }
-    }
-
-//    public void moveBackward() throws Exception {
-//        char x = movements.pop();
-
-//        if (x == 'N') {
-//            worldMap[robotRow + 1][robotColumn] = worldMap[robotRow][robotColumn];
-//            worldMap[robotRow][robotColumn] = SPACE;
-//            robotRow++;
-//            undos.push('N');
-//
-//        } else if (x == 'S') {
-//            worldMap[robotRow - 1][robotColumn] = worldMap[robotRow][robotColumn];
-//            worldMap[robotRow][robotColumn] = SPACE;
-//            robotRow--;
-//            undos.push('S');
-//
-//        } else if (x == 'E') {
-//            worldMap[robotRow][robotColumn - 1] = worldMap[robotRow][robotColumn];
-//            worldMap[robotRow][robotColumn] = SPACE;
-//            robotColumn--;
-//            undos.push('E');
-//
-//        } else if (x == 'W') {
-//            worldMap[robotRow][robotColumn + 1] = worldMap[robotRow][robotColumn];
-//            worldMap[robotRow][robotColumn] = SPACE;
-//            robotColumn++;
-//            undos.push('W');
-//        }
-//    }
 
     @Override
     public void rotateClockwise() {
